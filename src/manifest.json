@@ -1,0 +1,12 @@
+{
+	"manifest_version": 1,
+	"id": "joplin-plugin-img-to-base64",
+	"app_min_version": "1.7",
+	"version": "1.0.0",
+	"name": "joplin-plugin-img-to-base64",
+	"description": "",
+	"author": "CaptainZXX",
+	"homepage_url": "",
+	"repository_url": "",
+	"keywords": []
+}
