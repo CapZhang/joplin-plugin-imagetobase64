@@ -48,7 +48,7 @@ joplin.plugins.register({
 				// 解析 url 参数
 				var params = url.parse(req.url, true).query;  //parse将字符串转成对象,req.url="/?url=123&name=321"，true表示params是{url:"123",name:"321"}，false表示params是url=123&name=321
 				//这里应该返回处理后的base64字符串用以渲染图片
-				const db = new sqlite3.Database(`${rootDirStr + "/resources/" + "imgae.sqlite"}`);
+				const db = new sqlite3.Database(`${rootDirStr + "/images/" + "imgae.sqlite"}`);
 				db.each(`select * from imgfornote where address = '${params.address}'`, function (err, row) {
 					res.statusCode = 200;
 					// res.setHeader('Accept-Ranges', 'bytes');
@@ -69,7 +69,7 @@ joplin.plugins.register({
 
 
 		//创建图片数据库
-		const db = new sqlite3.Database(`${rootDirStr + "/resources/" + "imgae.sqlite"}`);
+		const db = new sqlite3.Database(`${rootDirStr + "/images/" + "imgae.sqlite"}`);
 		db.serialize(function () {
 			db.run("CREATE TABLE IF NOT EXISTS imgfornote (ID INTEGER PRIMARY KEY autoincrement, address TEXT UNIQUE,body TEXT)")
 			console.log("create imgfornote");
@@ -78,7 +78,7 @@ joplin.plugins.register({
 		db.close();
 
 		async function deleteImgInDB() {
-			const deletedb = new sqlite3.Database(`${rootDirStr + "/resources/" + "imgae.sqlite"}`);
+			const deletedb = new sqlite3.Database(`${rootDirStr + "/images/" + "imgae.sqlite"}`);
 			let deleteItems = [];
 
 			deletedb.serialize(function () {
@@ -109,7 +109,7 @@ joplin.plugins.register({
 		}
 
 		async function changeImgToBase64() {
-			// let imgInResourceDir = getFiles.getImageFiles(rootDirStr + "/resources/")
+			// let imgInResourceDir = getFiles.getImageFiles(rootDirStr + "/images/")
 			// console.log("imgInResourceDir", imgInResourceDir);
 			//转化当前note中的图片为
 			const note = await joplin.workspace.selectedNote();
@@ -131,7 +131,7 @@ joplin.plugins.register({
 			}
 			if (imgList.length > 0) {
 				//图片入库
-				const db = new sqlite3.Database(`${rootDirStr + "/resources/" + "imgae.sqlite"}`);
+				const db = new sqlite3.Database(`${rootDirStr + "/images/" + "imgae.sqlite"}`);
 				db.serialize(function () {
 					for (let i = 0; i < imgList.length; i++) {
 
